@@ -1,5 +1,5 @@
-import * as cheerio from "cheerio";
 import * as fs from "fs";
+import * as cheerio from "cheerio";
 
 type Product = {
   src: string | undefined;
@@ -8,11 +8,12 @@ type Product = {
   tags: string[];
 };
 
-const buffer = await fetch(
+// couldn't get cheerio's fromURL function to work for some reason. could be a bun thing.
+const html = await fetch(
   "https://www.mollyjogger.com/collections/inventory?page=1"
 ).then((response) => response.text());
 
-const $ = cheerio.load(buffer);
+const $ = cheerio.load(html);
 
 const products: Product[] = [];
 
